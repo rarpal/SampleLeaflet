@@ -1,4 +1,4 @@
-USE [jdGridDB]
+USE [jqGridDB]
 GO
 
 /****** Object:  Table [dbo].[AreaGuide]    Script Date: 27/04/2015 23:41:45 ******/
