@@ -48,15 +48,15 @@
             url: 'http://mapit.mysociety.org/postcode/' + $('#Text1').val(),
             //contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                $.each(data, function (k, v) {
+                $.each(data["areas"], function (k, v) {
                     if (v.type == $("input:radio[name='type']:checked").val()) {
-                        var areaGuide = LoadAreaGuide(v.id);
-                        if (areaGuide != null) {
-                            MapAreaGuide(areaGuide);
-                        } else {
-                            var areaID = v.id + '.geojson';
-                            MapArea(areaID)
-                        }
+                        LoadAreaGuide(v.id).done(function (data) {
+                            if (data.length != 0) {
+                                MapAreaGuide(data);
+                            } else {
+                                MapArea(v.id)
+                            }
+                        });
                     }
                 })
             }
@@ -64,44 +64,31 @@
     }
 
     function AreaFromAreaGuide() {
-        $(function () {
-            var areaGuide = LoadAllAreaGuide();
-        })
-        LoadAllAreaGuide().done(function(data){
+        LoadAllAreaGuide().done(function (data) {
             MapAreaGuide(data);
-        })
-        //var areaGuide = LoadAllAreaGuide();
+        });
     }
  
     function LoadAreaGuide(areaID) {
-        var areaGuide = null;
-        $.ajax({
+        return $.ajax({
             type: "GET",
             crossDomain: true,
             dataType: "json",
-            url: '/Mapping/LoadAreaGuide/' + areaID,
-            success: function (data) {
-                areaGuide = data;
-            }
+            url: '/Mapping/LoadAreaGuide?areaID=' + areaID
+        }).always(function(){
+
         });
-        return areaGuide;
     }
 
     function LoadAllAreaGuide() {
-        var areaGuide = null;
-        $.ajax({
+        return $.ajax({
             type: "GET",
             crossDomain: true,
             dataType: "json",
             url: '/Mapping/LoadAllAreaGuide'
-        }).done(function(data){
-            return data;
+        }).always(function(){
+
         });
-            //success: function (data) {
-            //    return data;
-            //}
-        //});
-        //return areaGuide;
     }
 
     function MapAreaGuide(areaGuide) {

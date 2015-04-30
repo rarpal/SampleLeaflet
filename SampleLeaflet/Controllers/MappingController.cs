@@ -21,7 +21,7 @@ namespace LeaftletSample.Controllers
         {
             List<AreaGuide> results = new List<AreaGuide>();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=RaviPC;Initial Catalog=jqGridDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=PalBook3;Initial Catalog=jqGridDB;Integrated Security=True"))
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
@@ -50,7 +50,7 @@ namespace LeaftletSample.Controllers
         {
             List<AreaGuide> results = new List<AreaGuide>();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=RaviPC;Initial Catalog=jqGridDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=PalBook3;Initial Catalog=jqGridDB;Integrated Security=True"))
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
