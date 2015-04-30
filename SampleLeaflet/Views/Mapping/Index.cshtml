@@ -15,8 +15,8 @@
     Post Code :<input id="Text1" type="text" />
     <input id="Radio1" type="radio" name="type" value="OLG" checked="checked" />LSOA
     <input id="Radio2" type="radio" name="type" value="OMG" />MSOA
-    <input id="Button1" type="button" value="Load" onclick="MapPostCode()" />
-    <input id="Button2" type="submit" value="Load from Area Guide" @*onclick="LoadAreaGuide()"*@ formaction="/Mapping/AreaGuide" />
+    <input id="Button1" type="button" value="Load" onclick="AreaFromPostCode()" />
+    <input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')" @*formaction="/Mapping/AreaGuide"*@ />
     <div id="map"></div>
 </form>
 <script>
@@ -41,46 +41,73 @@
         console.log("ready!");
     });
 
-    function MapPostCode() {
+    function AreaFromPostCode() {
         $.ajax({
             type: "GET",
             crossDomain: true,
             url: 'http://mapit.mysociety.org/postcode/' + $('#Text1').val(),
             //contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                areaData = data;
-                GetArea();
+                $.each(data, function (k, v) {
+                    if (v.type == $("input:radio[name='type']:checked").val()) {
+                        var areaGuide = LoadAreaGuide(v.id);
+                        if (areaGuide != null) {
+                            MapAreaGuide(areaGuide);
+                        } else {
+                            var areaID = v.id + '.geojson';
+                            MapArea(areaID)
+                        }
+                    }
+                })
             }
         });
     }
 
-    function GetArea() {
-        var areas = areaData["areas"];
-        var areaID = null;
-        for (area in areas) {
-            if (areas[area]["type"] == $("input:radio[name='type']:checked").val()) {
-                areaID = areas[area]["id"] + '.geojson';
-                break;
-            }
-        }
-        /*
-        a) Make AJAX call to WEB API to check if this area ID is stored in the AreGuide table
-        b) If so, call LoadAreaGuide(areaID) else call MapArea(areaID)
-        */
-
-        MapArea(areaID)
+    function AreaFromAreaGuide() {
+        $(function () {
+            var areaGuide = LoadAllAreaGuide();
+        })
+        LoadAllAreaGuide().done(function(data){
+            MapAreaGuide(data);
+        })
+        //var areaGuide = LoadAllAreaGuide();
     }
-
+ 
     function LoadAreaGuide(areaID) {
-        /*
-        a) If areaID is null make an AJAX call to Web API to get all records from AreaGuide table
-        b) If not null make the AJAX Web API call with parameter areaID which will return one result
-        c) Loop through results and for each area ID call MapArea(areaID)
-        */
+        var areaGuide = null;
         $.ajax({
             type: "GET",
-            url: ''
+            crossDomain: true,
+            dataType: "json",
+            url: '/Mapping/LoadAreaGuide/' + areaID,
+            success: function (data) {
+                areaGuide = data;
+            }
         });
+        return areaGuide;
+    }
+
+    function LoadAllAreaGuide() {
+        var areaGuide = null;
+        $.ajax({
+            type: "GET",
+            crossDomain: true,
+            dataType: "json",
+            url: '/Mapping/LoadAllAreaGuide'
+        }).done(function(data){
+            return data;
+        });
+            //success: function (data) {
+            //    return data;
+            //}
+        //});
+        //return areaGuide;
+    }
+
+    function MapAreaGuide(areaGuide) {
+        for (area in areaGuide) {
+            MapArea(areaGuide[area]["AreaID"]);
+        }
     }
 
     function MapArea(areaID) {
@@ -88,7 +115,7 @@
         $.ajax({
             type: "GET",
             crossDomain: true,
-            url: 'http://mapit.mysociety.org/area/' + areaID,
+            url: 'http://mapit.mysociety.org/area/' + areaID + '.geojson',
             //contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 geojsonArea = data;
@@ -100,5 +127,7 @@
             }
         });
     }
+
+    
 
 </script>
