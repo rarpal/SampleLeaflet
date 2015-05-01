@@ -54,7 +54,7 @@
                             if (data.length != 0) {
                                 MapAreaGuide(data);
                             } else {
-                                MapArea(v.id)
+                                MapArea(v.id,null)
                             }
                         });
                     }
@@ -75,6 +75,7 @@
             crossDomain: true,
             dataType: "json",
             url: '/Mapping/LoadAreaGuide?areaID=' + areaID
+            //url: '/Mapping/LoadAreaGuide/' + areaID
         }).always(function(){
 
         });
@@ -93,25 +94,34 @@
 
     function MapAreaGuide(areaGuide) {
         for (area in areaGuide) {
-            MapArea(areaGuide[area]["AreaID"]);
+            MapArea(areaGuide[area]["AreaID"], areaGuide[area]).done(function (data) {
+                //data.bindPopup("I am here");
+            });
         }
     }
 
-    function MapArea(areaID) {
-        var geojsonArea = null;
-        $.ajax({
+    function MapArea(areaID,areaGuide) {
+        return $.ajax({
             type: "GET",
             crossDomain: true,
             url: 'http://mapit.mysociety.org/area/' + areaID + '.geojson',
             //contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                geojsonArea = data;
-                L.geoJson(geojsonArea, {
+                var polygon = L.geoJson(data, {
                     style: function (feature) {
                         return { fill: "#ababab" };
                     }
-                }).addTo(map);
-            }
+                });
+                if (areaGuide != null) {
+                    var popupInfo = "Area Type: " + areaGuide["Type"].toString() + "<br>" +
+                        "Rating: " + areaGuide["Rating"].toString() + "<br>" +
+                        "Avg Price: " + areaGuide["AvgPrice"].toString() + "<br>" +
+                        "Notes: " + areaGuide["Notes"].toString();
+                    polygon.bindPopup(popupInfo).addTo(map);
+                } else {
+                    polygon.addTo(map);
+                }
+             }
         });
     }
 

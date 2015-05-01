@@ -21,12 +21,12 @@ namespace LeaftletSample.Controllers
         {
             List<AreaGuide> results = new List<AreaGuide>();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=PalBook3;Initial Catalog=jqGridDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=RaviPC;Initial Catalog=jqGridDB;Integrated Security=True"))
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT AreaID FROM dbo.AreaGuide";
+                    cmd.CommandText = "SELECT AreaID,Type,AvgPrice,Rating,Notes FROM dbo.AreaGuide";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -34,6 +34,10 @@ namespace LeaftletSample.Controllers
                             AreaGuide ag = new AreaGuide();
                             ag.AreaID = reader["AreaID"].ToString();
                             results.Add(ag);
+                            ag.Type = reader["Type"].ToString();
+                            ag.AvgPrice = Decimal.Parse(reader["AvgPrice"].ToString());
+                            ag.Rating = Byte.Parse(reader["Rating"].ToString());
+                            ag.Notes = reader["Notes"].ToString();
                         }
                         reader.Dispose();
                     }
@@ -50,18 +54,22 @@ namespace LeaftletSample.Controllers
         {
             List<AreaGuide> results = new List<AreaGuide>();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=PalBook3;Initial Catalog=jqGridDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=RaviPC;Initial Catalog=jqGridDB;Integrated Security=True"))
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = String.Format("SELECT AreaID FROM dbo.AreaGuide WHERE AreaID = '{0}'",areaID);
+                    cmd.CommandText = String.Format("SELECT AreaID,Type,AvgPrice,Rating,Notes FROM dbo.AreaGuide WHERE AreaID = '{0}'",areaID);
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             AreaGuide ag = new AreaGuide();
                             ag.AreaID = reader["AreaID"].ToString();
+                            ag.Type = reader["Type"].ToString();
+                            ag.AvgPrice = Decimal.Parse(reader["AvgPrice"].ToString());
+                            ag.Rating = Byte.Parse(reader["Rating"].ToString());
+                            ag.Notes = reader["Notes"].ToString();
                             results.Add(ag);
                         }
                         reader.Dispose();
