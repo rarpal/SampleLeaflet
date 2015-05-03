@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LeaftletSample.Controllers
+namespace SampleLeaflet.Controllers
 {
     public class HomeController : Controller
     {

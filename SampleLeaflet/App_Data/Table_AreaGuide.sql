@@ -21,6 +21,9 @@ CREATE TABLE [dbo].[AreaGuide](
 
 GO
 
+ALTER TABLE dbo.AreaGuide ADD CONSTRAINT pk_AreaGuide PRIMARY KEY (ID)
+GO
+
 SET ANSI_PADDING OFF
 GO
 

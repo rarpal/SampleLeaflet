@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(LeaftletSample.Startup))]
-namespace LeaftletSample
+[assembly: OwinStartupAttribute(typeof(SampleLeaflet.Startup))]
+namespace SampleLeaflet
 {
     public partial class Startup
     {

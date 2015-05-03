@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using LeaftletSample.Models;
+using SampleLeaflet.Models;
+using System.Configuration;
 
-namespace LeaftletSample.Controllers
+namespace SampleLeaflet.Controllers
 {
     public class MappingController : Controller
     {
@@ -21,7 +22,7 @@ namespace LeaftletSample.Controllers
         {
             List<AreaGuide> results = new List<AreaGuide>();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=RaviPC;Initial Catalog=jqGridDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBAreaGuide"].ConnectionString))
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
@@ -54,7 +55,7 @@ namespace LeaftletSample.Controllers
         {
             List<AreaGuide> results = new List<AreaGuide>();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=RaviPC;Initial Catalog=jqGridDB;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBAreaGuide"].ConnectionString))
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())

@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using LeaftletSample.Models;
+using SampleLeaflet.Models;
 
-namespace LeaftletSample
+namespace SampleLeaflet
 {
     public class EmailService : IIdentityMessageService
     {

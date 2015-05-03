@@ -54,7 +54,7 @@
                             if (data.length != 0) {
                                 MapAreaGuide(data);
                             } else {
-                                MapArea(v.id,null)
+                                MapArea(v.id, null);
                             }
                         });
                     }
@@ -119,7 +119,8 @@
                         "Notes: " + areaGuide["Notes"].toString();
                     polygon.bindPopup(popupInfo).addTo(map);
                 } else {
-                    polygon.addTo(map);
+                    var popupInfo = "Area ID: " + areaID.toString();
+                    polygon.bindPopup(popupInfo).addTo(map);
                 }
              }
         });

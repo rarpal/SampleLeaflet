@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace LeaftletSample
+namespace SampleLeaflet
 {
     public class FilterConfig
     {
