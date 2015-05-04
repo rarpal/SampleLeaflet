@@ -5,11 +5,14 @@
 <link href="~/Content/leaflet.css" rel="stylesheet" />
 <script src="~/Scripts/leaflet.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+
 <style>
     #map {
         height: 500px;
     }
 </style>
+<div ng-app></div>
 <h2>Mapping</h2>
 <form>
     Post Code :<input id="Text1" type="text" />
@@ -86,7 +89,8 @@
             type: "GET",
             crossDomain: true,
             dataType: "json",
-            url: '/Mapping/LoadAllAreaGuide'
+            //url: '/Mapping/LoadAllAreaGuide'
+            url: '/api/AreaGuidesAPI'
         }).always(function(){
 
         });
@@ -113,10 +117,11 @@
                     }
                 });
                 if (areaGuide != null) {
-                    var popupInfo = "Area Type: " + areaGuide["Type"].toString() + "<br>" +
-                        "Rating: " + areaGuide["Rating"].toString() + "<br>" +
-                        "Avg Price: " + areaGuide["AvgPrice"].toString() + "<br>" +
-                        "Notes: " + areaGuide["Notes"].toString();
+                    var popupInfo =
+                        "Area Type: " + areaGuide["Type"].toString() + "<br>" +
+                        "Rating: <input type='number' name='rating' min='1' max='5' value='" + areaGuide["Rating"].toString() + "'><br>" +
+                        "Avg Price: <input type='text' name='avgprice' pattern='^\d*(\.\d{2}$)?' value='" + areaGuide["AvgPrice"].toString() + "'><br>" +
+                        "Notes: <input type='text' name='notes' value='" + areaGuide["Notes"].toString() +"'>";
                     polygon.bindPopup(popupInfo).addTo(map);
                 } else {
                     var popupInfo = "Area ID: " + areaID.toString();
