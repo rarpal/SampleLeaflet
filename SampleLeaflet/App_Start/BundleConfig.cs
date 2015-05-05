@@ -26,6 +26,11 @@ namespace SampleLeaflet
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new Bundle("~/bundles/files/scripts")
+                .Include("~/Scripts/jquery-1.10.2.min.js")
+                .Include("~/Scripts/bootstrap/bootstrap.js")
+                .Include("~/Scripts/angular/angular.js"));
         }
     }
 }
