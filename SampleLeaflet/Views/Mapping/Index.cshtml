@@ -4,20 +4,19 @@
 }
 <link href="~/Content/leaflet.css" rel="stylesheet" />
 <script src="~/Scripts/leaflet.js"></script>
-<style>
+@*<style>
     #map {
         height: 500px;
     }
-</style>
+</style>*@
 <h2>Mapping</h2>
-<form>
-    Post Code :<input id="Text1" type="text" />
-    <input id="Radio1" type="radio" name="type" value="OLG" checked="checked" />LSOA
-    <input id="Radio2" type="radio" name="type" value="OMG" />MSOA
-    <input id="Button1" type="button" value="Load" onclick="AreaFromPostCode()" />
-    <input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')" @*formaction="/Mapping/AreaGuide"*@ />
-    <div id="map"></div>
-</form>
+Post Code :<input id="Text1" type="text" />
+<input id="Radio1" type="radio" name="type" value="OLG" checked="checked" />LSOA
+<input id="Radio2" type="radio" name="type" value="OMG" />MSOA
+<input id="Button1" type="button" value="Load" onclick="AreaFromPostCode()" />
+<input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')"/>
+<div id="map" style="width:1024px; height:500px"></div>
+<p>Hello {{name}}</p>
 <script>
 
     var areaData = null;
