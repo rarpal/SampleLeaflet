@@ -30,7 +30,6 @@ Post Code :<input id="Text1" type="text" />
         <td>Notes</td>
     </tr>
     <tr ng-repeat="areaguide in areaguides">
-        
         <td>{{areaguide.AreaID}}</td><td>  </td>
         <td>{{areaguide.Type}}</td><td>  </td>
         <td>{{areaguide.AvgPrice}}</td><td>  </td>
@@ -83,6 +82,7 @@ Post Code :<input id="Text1" type="text" />
     }
 
     function AreaFromAreaGuide() {
+        $scope.
         LoadAllAreaGuide().done(function (data) {
             MapAreaGuide(data);
         });

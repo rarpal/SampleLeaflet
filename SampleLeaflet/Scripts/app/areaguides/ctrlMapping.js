@@ -6,11 +6,12 @@ angular
         $scope.name = "Area Mapping";
         $scope.areaguides = [];
         $scope.areaid = "2232322";
-
-        $http({
-            method: 'GET',
-            url: '/api/AreaGuidesAPI'
-        }).success(function (data) {
-            $scope.areaguides = data;
-        });
+        $scope.loadAllAreaGuide = function () {
+            $http({
+                method: 'GET',
+                url: '/api/AreaGuidesAPI'
+            }).success(function (data) {
+                $scope.areaguides = data;
+            });
+        };
     }]);
