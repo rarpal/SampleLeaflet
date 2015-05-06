@@ -16,12 +16,28 @@ Post Code :<input id="Text1" type="text" />
 <input id="Button1" type="button" value="Load" onclick="AreaFromPostCode()" />
 <input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')"/>
 <div id="map" style="width:1024px; height:500px"></div>
-<p>Hello {{name}}</p>
-<tbody>
-    <tr ng-repeat="areaguide in areaguides">
-        <td>row {{areaguide}}</td>
+@*<p>Hello {{areaguides}}</p>*@
+<table>
+    <tr>
+        <td>Area ID</td>
+        <td>  </td>
+        <td>Type</td>
+        <td>  </td>
+        <td>Avg Price</td>
+        <td>  </td>
+        <td>Rating</td>
+        <td>  </td>
+        <td>Notes</td>
     </tr>
-</tbody>
+    <tr ng-repeat="areaguide in areaguides">
+        
+        <td>{{areaguide.AreaID}}</td><td>  </td>
+        <td>{{areaguide.Type}}</td><td>  </td>
+        <td>{{areaguide.AvgPrice}}</td><td>  </td>
+        <td>{{areaguide.Rating}}</td><td>  </td>
+        <td>{{areaguide.Notes}}</td>
+    </tr>
+</table>
 <script>
 
     var areaData = null;
