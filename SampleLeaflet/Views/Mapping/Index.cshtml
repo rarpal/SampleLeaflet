@@ -17,6 +17,11 @@ Post Code :<input id="Text1" type="text" />
 <input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')"/>
 <div id="map" style="width:1024px; height:500px"></div>
 <p>Hello {{name}}</p>
+<tbody>
+    <tr ng-repeat="areaguide in areaguides">
+        <td>row {{areaguide}}</td>
+    </tr>
+</tbody>
 <script>
 
     var areaData = null;

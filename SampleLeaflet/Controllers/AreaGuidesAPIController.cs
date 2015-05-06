@@ -17,7 +17,7 @@ namespace SampleLeaflet.Controllers
         private DBEntitiesAreaGuide db = new DBEntitiesAreaGuide();
 
         // GET: api/AreaGuidesAPI
-        public IQueryable<AreaGuide> GetAreaGuides()
+        public IEnumerable<AreaGuide> GetAreaGuides()
         {
             return db.AreaGuides;
         }
