@@ -21,9 +21,14 @@ angular
             controller: 'ctrlContact',
         });
         $routeProvider.when('/Mapping', {
-            templateUrl: '/Mapping/Index',
+            templateUrl: '/AreaGuides/Index',
             controller: 'ctrlMapping'
         });
+        $routeProvider.when('AreaGuides/Edit', {
+            templateUrl: '/AreaGuides/Edit',
+            controller: ''
+        });
+
 
         // Specify HTML5 mode (using the History APIs) or HashBang syntax.
         $locationProvider.html5Mode(false).hashPrefix('!');

@@ -17,7 +17,7 @@ namespace SampleLeaflet.Controllers
         // GET: AreaGuides
         public ActionResult Index()
         {
-            return View(db.AreaGuides.ToList());
+            return PartialView(db.AreaGuides.ToList());
         }
 
         // GET: AreaGuides/Details/5
@@ -70,7 +70,7 @@ namespace SampleLeaflet.Controllers
             {
                 return HttpNotFound();
             }
-            return View(areaGuide);
+            return PartialView(areaGuide);
         }
 
         // POST: AreaGuides/Edit/5

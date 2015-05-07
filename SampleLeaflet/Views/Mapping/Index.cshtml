@@ -4,39 +4,65 @@
 }
 <link href="~/Content/leaflet.css" rel="stylesheet" />
 <script src="~/Scripts/leaflet.js"></script>
+<script src="/Scripts/jquery-1.10.2.min.js"></script>
+<script src="/Scripts/angular/angular.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+
+<script src="~/Scripts/app/areaguides/appModule.js"></script>
+<script src="~/Scripts/app/areaguides/ctrlHome.js"></script>
+<script src="~/Scripts/app/areaguides/ctrlAbout.js"></script>
+<script src="~/Scripts/app/areaguides/ctrlContact.js"></script>
+<script src="~/Scripts/app/areaguides/ctrlMapping.js"></script>
+
 @*<style>
     #map {
         height: 500px;
     }
 </style>*@
-<h2>Mapping</h2>
-Post Code :<input id="Text1" type="text" />
-<input id="Radio1" type="radio" name="type" value="OLG" checked="checked" />LSOA
-<input id="Radio2" type="radio" name="type" value="OMG" />MSOA
-<input id="Button1" type="button" value="Load" onclick="AreaFromPostCode()" />
-<input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')" ng-click="loadAllAreaGuide()" />
-<div id="map" style="width:1024px; height:500px"></div>
-<p>Hello {{name}}</p>
-<table>
-    <tr>
-        <td>Area ID</td>
-        <td>  </td>
-        <td>Type</td>
-        <td>  </td>
-        <td>Avg Price</td>
-        <td>  </td>
-        <td>Rating</td>
-        <td>  </td>
-        <td>Notes</td>
-    </tr>
-    <tr ng-repeat="areaguide in areaguides">
-        <td>{{areaguide.AreaID}}</td><td>  </td>
-        <td>{{areaguide.Type}}</td><td>  </td>
-        <td>{{areaguide.AvgPrice}}</td><td>  </td>
-        <td>{{areaguide.Rating}}</td><td>  </td>
-        <td>{{areaguide.Notes}}</td>
-    </tr>
-</table>
+<div ng-app="areaGuides">
+    <div ng-controller="ctrlMapping">
+        <h2>Mapping</h2>
+        Post Code :<input id="Text1" type="text" />
+        <input id="Radio1" type="radio" name="type" value="OLG" checked="checked" />LSOA
+        <input id="Radio2" type="radio" name="type" value="OMG" />MSOA
+        <input id="Button1" type="button" value="Load" onclick="AreaFromPostCode()" />
+        <input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')" ng-click="loadAllAreaGuide()" />
+        <a href="#!/Contact">Contact</a>
+        <a href="#!/About">About</a>
+        <a href="#!/Mapping">Mapping</a>
+        <div id="map" style="width:1024px; height:500px"></div>
+        @*<p>Data {{areaguides}}</p>*@
+        <table>
+            <tr>
+                <td>Area ID</td>
+                <td>  </td>
+                <td>Type</td>
+                <td>  </td>
+                <td>Avg Price</td>
+                <td>  </td>
+                <td>Rating</td>
+                <td>  </td>
+                <td>Notes</td>
+            </tr>
+            <tr ng-repeat="areaguide in areaguides">
+                <td>{{areaguide.AreaID}}</td>
+                <td>  </td>
+                <td>{{areaguide.Type}}</td>
+                <td>  </td>
+                <td>{{areaguide.AvgPrice}}</td>
+                <td>  </td>
+                <td>{{areaguide.Rating}}</td>
+                <td>  </td>
+                <td>{{areaguide.Notes}}</td>
+            </tr>
+        </table>
+        <div class="container">
+            <div ng-view=""></div>
+        </div>
+    </div>
+</div>
+
 <script>
 
     var areaData = null;
@@ -134,10 +160,10 @@ Post Code :<input id="Text1" type="text" />
                 if (areaGuide != null) {
                     var popupInfo =
                         "Area Type: " + areaGuide["Type"].toString() + "<br>" +
-                        "Rating: <input type='number' name='rating' min='1' max='5' value='" + areaGuide["Rating"].toString() + "'><br>" +
-                        "Avg Price: <input type='text' name='avgprice' pattern='^\d*(\.\d{2}$)?' value='" + areaGuide["AvgPrice"].toString() + "'><br>" +
-                        //"Notes: <input type='text' name='notes' value='" + areaGuide["Notes"].toString() +"'>";
-                        "Notes: <input type='text' name='notes' value='{{name}}' >";
+                        "Rating: " + areaGuide["Rating"].toString() + "<br>" +
+                        "Avg Price: " + areaGuide["AvgPrice"].toString() + "<br>" +
+                        "Notes: " + areaGuide["Notes"].toString() + "<br>" +
+                        "<a href='#!/AreaGuides/Edit/'" + areaGuide["ID"] + ">Edit</a>";
                     polygon.bindPopup(popupInfo).addTo(map);
                 } else {
                     var popupInfo = "Area ID: " + areaID.toString();
@@ -146,7 +172,5 @@ Post Code :<input id="Text1" type="text" />
              }
         });
     }
-
-    
 
 </script>

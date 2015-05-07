@@ -15,7 +15,7 @@ namespace SampleLeaflet.Controllers
         // GET: Mapping
         public ActionResult Index()
         {
-            return PartialView();
+            return View();
         }
 
         public JsonResult LoadAllAreaGuide()
