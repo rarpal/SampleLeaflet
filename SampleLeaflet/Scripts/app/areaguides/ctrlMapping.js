@@ -6,6 +6,8 @@ angular
         $scope.name = "Area Mapping";
         $scope.areaguides = [];
         $scope.areaid = "2232322";
+        $scope.rating = 3;
+
         $scope.loadAllAreaGuide = function () {
             $http({
                 method: 'GET',

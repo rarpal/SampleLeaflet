@@ -14,9 +14,9 @@ Post Code :<input id="Text1" type="text" />
 <input id="Radio1" type="radio" name="type" value="OLG" checked="checked" />LSOA
 <input id="Radio2" type="radio" name="type" value="OMG" />MSOA
 <input id="Button1" type="button" value="Load" onclick="AreaFromPostCode()" />
-<input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')"/>
+<input id="Button2" type="button" value="Load from Area Guide" onclick="AreaFromAreaGuide('')" ng-click="loadAllAreaGuide()" />
 <div id="map" style="width:1024px; height:500px"></div>
-@*<p>Hello {{areaguides}}</p>*@
+<p>Hello {{name}}</p>
 <table>
     <tr>
         <td>Area ID</td>
@@ -82,7 +82,6 @@ Post Code :<input id="Text1" type="text" />
     }
 
     function AreaFromAreaGuide() {
-        $scope.
         LoadAllAreaGuide().done(function (data) {
             MapAreaGuide(data);
         });
@@ -137,7 +136,8 @@ Post Code :<input id="Text1" type="text" />
                         "Area Type: " + areaGuide["Type"].toString() + "<br>" +
                         "Rating: <input type='number' name='rating' min='1' max='5' value='" + areaGuide["Rating"].toString() + "'><br>" +
                         "Avg Price: <input type='text' name='avgprice' pattern='^\d*(\.\d{2}$)?' value='" + areaGuide["AvgPrice"].toString() + "'><br>" +
-                        "Notes: <input type='text' name='notes' value='" + areaGuide["Notes"].toString() +"'>";
+                        //"Notes: <input type='text' name='notes' value='" + areaGuide["Notes"].toString() +"'>";
+                        "Notes: <input type='text' name='notes' value='{{name}}' >";
                     polygon.bindPopup(popupInfo).addTo(map);
                 } else {
                     var popupInfo = "Area ID: " + areaID.toString();
